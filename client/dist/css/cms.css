@@ -1,0 +1,170 @@
+.styling-block-preview {}
+
+  .styling-block-preview__description {
+    min-width: 680px;
+  }
+
+  .styling-block-preview__image {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+    .styling-block-preview__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 12px;
+      margin-top: 15px;
+      clear: both;
+    }
+
+      .styling-block-preview__list-item {
+        display: inline;
+        float: left;
+        margin-right: 20px;
+      }
+
+      .styling-block-preview__list-item strong {
+        display: block;
+      }
+
+.elemental-editor .col-EditorPreview {
+  padding-bottom: 10px;
+}
+
+/* Fix for no margin between Gridfield table and subsequent fields */
+.cms-content-view .grid-field, .cms-content-view .grid-field__table {
+  margin-bottom: 1.2308rem;
+}
+
+.cms-edit-form .stylingoptionset .radio {
+  position: absolute;
+  opacity: 0;
+  left: 0;
+  width: 60px;
+  height: 40px;
+}
+
+.cms-edit-form .stylingoptionset ul li {
+  display: inline-block;
+  text-align: center;
+  width: 60px;
+  position: relative;
+}
+
+.cms-edit-form .stylingoptionset ul {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.cms-edit-form .stylingoptionset label {
+  margin-bottom: 0;
+}
+
+.cms-edit-form .stylingoptionset .icon-wrap  {
+  display: block;
+  width: 60px;
+  height: 40px;
+  margin: 5px auto;
+  border: 1px solid #e5e8eb;
+  padding: 7px;
+}
+
+.cms-edit-form .stylingoptionset .ischecked .icon-wrap {
+  border: 1px solid #29abe2;
+  background-color: #e6f5fc;
+}
+
+.cms-edit-form .stylingoptionset .icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url(sprite.svg);
+  width: 24px;
+  height: 24px;
+}
+
+.cms-edit-form .stylingoptionset .ischecked .icon {
+  background-image: url(sprite-active.svg);
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_horalign_left,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_left {
+  background-position: -80px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_horalign_right,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_right {
+  background-position: -120px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_horalign_center,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_center {
+  background-position: -40px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_veralign_top,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_top {
+  background-position: -160px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_veralign_bottom,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_bottom {
+  background-position: 0 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_veralign_middle,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_middle {
+  background-position: -200px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_textalign_left,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_left {
+  background-position: -280px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_textalign_right,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_right {
+  background-position: -320px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_textalign_center,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_center {
+  background-position: -240px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_height_small,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_small {
+  background-position: -364px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_height_medium,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_medium {
+  background-position: -411px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_height_large,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_large {
+  background-position: -456px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-9,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-9 {
+  background-position: -613px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-6,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-6 {
+  background-position: -576px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-3,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-3 {
+  background-position: -542px 0;
+}
+
+.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-12,
+.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-12 {
+  background-position: -650px 0;
+}

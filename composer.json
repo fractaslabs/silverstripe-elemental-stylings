@@ -1,0 +1,48 @@
+{
+    "name": "fractas/elemental-stylings",
+    "type": "silverstripe-vendormodule",
+    "description": "Collection of useful and reusable SilverStripe Elemental stylings properties",
+    "homepage": "http://github.com/fractaslabs/silverstripe-elemental-stylings",
+    "keywords": [
+        "silverstripe",
+        "content management",
+        "styling",
+        "elemental",
+        "silverstripe elemental",
+        "content blocks"
+    ],
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "http://github.com/fractaslabs/silverstripe-elemental-stylings/issues"
+    },
+    "authors": [{
+        "name": "Milan Jelicanin",
+        "email": "milan.jelicanin@fractas.com"
+    }, {
+        "name": "Petar Simic",
+        "email": "petar.simic@fractas.com"
+    }],
+    "require": {
+        "dnadesign/silverstripe-elemental": "^2.0",
+        "silverstripe/vendor-plugin": "^1.0"
+    },
+    "require-dev": {},
+    "config": {
+        "process-timeout": 600
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "expose": [
+            "client/dist"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Fractas\\ElementalStylings\\": "src/"
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}
