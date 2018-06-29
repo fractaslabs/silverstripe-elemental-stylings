@@ -1,4 +1,8 @@
 # SilverStripe Elemental Stylings
+[![Latest Stable Version](https://poser.pugx.org/fractas/elemental-stylings/v/stable)](https://packagist.org/packages/fractas/elemental-stylings)
+[![Total Downloads](https://poser.pugx.org/fractas/elemental-stylings/downloads)](https://packagist.org/packages/fractas/elemental-stylings)
+[![Latest Unstable Version](https://poser.pugx.org/fractas/elemental-stylings/v/unstable)](https://packagist.org/packages/fractas/elemental-stylings)
+[![License](https://poser.pugx.org/fractas/elemental-stylings/license)](https://packagist.org/packages/fractas/elemental-stylings)
 
 
 ## Introduction
@@ -14,8 +18,6 @@ Predefined Styling classes:
 - **StylingWidth** - changes a width of a Block _(example uses Bootstrap Grid syntax)_
 
 The module provides basic markup for each of the stylings but you have an option to edit and/or replace those predefined styles.
-
-For a more detailed overview of using this module, please see [the user help documentation](docs/en/index.md).
 
 
 ## Requirements
