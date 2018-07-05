@@ -12,6 +12,8 @@ This module extends a [SilverStripe Elemental Blocks](https://github.com/silvers
 Predefined Styling classes:
 - **StylingHeight** - changes a height of a Block
 - **StylingHorizontalAlign** - changes a horizontal alignment of a Block
+- **StylingLimit** - changes a limit of a Block
+- **StylingSize** - changes a size of a Block
 - **StylingStyle** _(extended from Core module)_ - special enhancements for a class extended from Core module
 - **StylingTextAlign** - changes a text alignment inside of a Block
 - **StylingVerticalAlign** - changes a vertical alignment of a Block
