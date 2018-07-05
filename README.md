@@ -89,6 +89,11 @@ DNADesign\Elemental\Models\ElementContent:
     col-sm-12: '100%'
 ```
 
+## Implementation example: 'Text with Image' Elemement
+
+* New Element class file: [ElementContentImage.php](https://gist.github.com/jelicanin/20d11104a89fd9ea3a1e69b8bc91824b)
+* New Element template file: [ElementContentImage.ss](https://gist.github.com/jelicanin/aec741745d417e9047efbf25bf93245d)
+
 
 ## Screenshots
 
