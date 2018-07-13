@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This module extends a [SilverStripe Elemental Blocks](https://github.com/silverstripe/silverstripe-elemental-blocks) to enhance its functionalities with predefined sets of Classes of Styling elements.
+This module extends a [SilverStripe Elemental Blocks](https://github.com/dnadesign/silverstripe-elemental) to enhance its functionalities with predefined sets of Classes of Styling elements.
 
 Predefined Styling classes:
 - **StylingHeight** - changes a height of a Block
@@ -34,7 +34,7 @@ The module provides basic markup for each of the stylings but you have an option
 ```
 composer require fractas/elemental-stylings
 ```
-- Follow an instructions for installation of Elemental Blocks module
+- Follow an instructions for installation of [Elemental Blocks module](https://github.com/dnadesign/silverstripe-elemental#installation)
 - Apply a desired Styling Class extension on Block class _(ie. ElementContent that ships with Core module)_
 **mysite/\_config/elements.yml**
 ```yaml
@@ -47,7 +47,12 @@ composer require fractas/elemental-stylings
       - Fractas\ElementalStylings\StylingVerticalAlign
       - Fractas\ElementalStylings\StylingWidth
 ```
-- Add an desired styles based on your preferences, see Configuration example
+- Add an desired styles based on your preferences, see [Configuration example](#full-configuration-example)
+- Optionaly, you can require basic CSS stylings provided with this module to your controller class like:
+  **mysite/code/PageController.php**
+  ```php
+      Requirements::css('fractas/elemental-stylings:client/dist/css/stylings.css');
+  ```
 - Build and flush your project ```vendor/bin/sake dev/build flush=1```
 
 
