@@ -25,7 +25,7 @@ The module provides basic markup for each of the stylings but you have an option
 ## Requirements
 
 * SilverStripe CMS ^4.0
-* SilverStripe Elemental Blocks ^2.0 || ^3.0
+* SilverStripe Elemental Blocks ^4
 
 
 ## Installation
