@@ -23,7 +23,7 @@
         "email": "petar.simic@fractas.com"
     }],
     "require": {
-        "dnadesign/silverstripe-elemental": "^2.0 || ^3.0",
+        "dnadesign/silverstripe-elemental": "^4.0",
         "silverstripe/vendor-plugin": "^1.0"
     },
     "require-dev": {},
