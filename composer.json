@@ -24,7 +24,7 @@
     }],
     "require": {
         "dnadesign/silverstripe-elemental": "^4 || ^5",
-        "silverstripe/vendor-plugin": "^1.0"
+        "silverstripe/vendor-plugin": "^1 || ^2"
     },
     "require-dev": {},
     "config": {
