@@ -77,7 +77,7 @@ class StylingStyle extends DataExtension
     public function populateDefaults()
     {
         $style = $this->owner->config()->get('styles');
-        $style = reset($style);
+        $style = array_key_first($style);
 
         $this->owner->Style = $style;
 
