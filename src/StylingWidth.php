@@ -2,14 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
 use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
-
 class StylingWidth extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @config
      */
@@ -34,17 +36,30 @@ class StylingWidth extends Extension
      *
      * @var array
      */
-    private static array $width = [];
+    private static array $width_variants = [];
 
-    public function getStylingWidthNice(string $key): string
+    /**
+     * @return array<string, string>
+     */
+    private function getWidthDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('width')[$key])) ? $key : $this->getOwner()->config()->get('width')[$key];
+        return [
+            'quarter' => _t(StylingWidth::class . '.QUARTER', '25%'),
+            'half' => _t(StylingWidth::class . '.HALF', '50%'),
+            'three-quarters' => _t(StylingWidth::class . '.THREE_QUARTERS', '75%'),
+            'full' => _t(StylingWidth::class . '.FULL', '100%'),
+        ];
+    }
+
+    public function getStylingWidthNice(?string $key): string
+    {
+        return $this->getWidthDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingWidthData(): ArrayData
     {
         return ArrayData::create([
-            'Label' => self::$singular_name,
+            'Label' => StylingWidth::$singular_name,
             'Value' => $this->getStylingWidthNice($this->getOwner()->Width),
         ]);
     }
@@ -54,20 +69,17 @@ class StylingWidth extends Extension
      */
     public function getWidthVariant(): string
     {
-        $width = $this->getOwner()->Width;
-        $widths = $this->getOwner()->config()->get('width');
-
-        $width = isset($widths[$width]) ? strtolower($width) : '';
-
-        return $width;
+        return $this->getConfiguredVariantClass('width_variants', $this->getOwner()->Width);
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
-        $width = $this->getOwner()->config()->get('width');
+        $width = $this->getEnabledVariantOptions('width_variants', $this->getWidthDefinitions());
         if ($width && count($width) > 1) {
-            $fields->addFieldToTab('Root.Styling',
-                StylingOptionsetField::create('Width', _t(self::class . '.WIDTH', 'Width Size'), $width));
+            $fields->addFieldToTab(
+                'Root.Styling',
+                StylingOptionsetField::create('Width', _t(StylingWidth::class . '.WIDTH', 'Width Size'), $width)
+            );
         } else {
             $fields->removeByName('Width');
         }
@@ -75,11 +87,11 @@ class StylingWidth extends Extension
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $width = $this->getOwner()->config()->get('width');
-        $width = reset($width);
-
-        $this->getOwner()->Width = $width;
+        $default = $this->getDefaultVariantKey('width_variants', $this->getWidthDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->Width = $default;
+        }
     }
 }

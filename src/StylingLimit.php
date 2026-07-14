@@ -2,13 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
+use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
 class StylingLimit extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @config
      */
@@ -33,19 +36,29 @@ class StylingLimit extends Extension
      *
      * @var array
      */
-    private static array $limit = [];
+    private static array $limit_variants = [];
 
-    public function getStylingLimitNice($key)
+    /** @return array<string, string> */
+    private function getLimitDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('limit')[$key])) ? $key : $this->getOwner()->config()->get('limit')[$key];
+        return [
+            'three' => _t(StylingLimit::class . '.THREE', '3 items'),
+            'six' => _t(StylingLimit::class . '.SIX', '6 items'),
+            'twelve' => _t(StylingLimit::class . '.TWELVE', '12 items'),
+        ];
+    }
+
+    public function getStylingLimitNice(?string $key): string
+    {
+        return $this->getLimitDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingLimitData(): ArrayData
     {
         return ArrayData::create([
-           'Label' => self::$singular_name,
+           'Label' => StylingLimit::$singular_name,
            'Value' => $this->getStylingLimitNice($this->getOwner()->Limit),
-       ]);
+        ]);
     }
 
     /**
@@ -53,19 +66,17 @@ class StylingLimit extends Extension
      */
     public function getLimitVariant(): string
     {
-        $limit = $this->getOwner()->Limit;
-        $limits = $this->getOwner()->config()->get('limit');
-
-        $limit = isset($limits[$limit]) ? strtolower($limit) : '';
-
-        return 'limit-'.$limit;
+        return $this->getConfiguredVariantClass('limit_variants', $this->getOwner()->Limit);
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
-        $limit = $this->getOwner()->config()->get('limit');
+        $limit = $this->getEnabledVariantOptions('limit_variants', $this->getLimitDefinitions());
         if ($limit && count($limit) > 1) {
-            $fields->addFieldToTab('Root.Styling', DropdownField::create('Limit', _t(self::class.'.LIMIT', 'Limit'), $limit));
+            $fields->addFieldToTab(
+                'Root.Styling',
+                StylingOptionsetField::create('Limit', _t(StylingLimit::class . '.LIMIT', 'Limit'), $limit)
+            );
         } else {
             $fields->removeByName('Limit');
         }
@@ -73,11 +84,11 @@ class StylingLimit extends Extension
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $limit = $this->getOwner()->config()->get('limit');
-        $limit = reset($limit);
-
-        $this->getOwner()->Limit = $limit;
+        $default = $this->getDefaultVariantKey('limit_variants', $this->getLimitDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->Limit = $default;
+        }
     }
 }

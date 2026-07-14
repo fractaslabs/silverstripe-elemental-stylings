@@ -1,0 +1,8 @@
+---
+Name: elemental-stylings-requirements
+After:
+  - '#admin'
+---
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_css:
+    - 'fractas/elemental-stylings:client/dist/css/cms.css'

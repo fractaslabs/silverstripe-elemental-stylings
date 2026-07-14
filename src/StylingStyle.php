@@ -2,14 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
+use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
-
 class StylingStyle extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @var string
      * @config
@@ -27,17 +29,27 @@ class StylingStyle extends Extension
      *
      * @var array
      */
-    private static array $style = [];
+    private static array $style_variants = [];
 
-    public function getStylingStyleNice(string $key): string
+    /** @return array<string, string> */
+    private function getStyleDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('styles')[$key])) ? $key : $this->getOwner()->config()->get('styles')[$key];
+        return [
+            'default' => _t(StylingStyle::class . '.DEFAULT', 'Default'),
+            'light' => _t(StylingStyle::class . '.LIGHT', 'Light'),
+            'dark' => _t(StylingStyle::class . '.DARK', 'Dark'),
+        ];
+    }
+
+    public function getStylingStyleNice(?string $key): string
+    {
+        return $this->getStyleDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingStyleData(): ArrayData
     {
         return ArrayData::create([
-            'Label' => self::$singular_name,
+            'Label' => StylingStyle::$singular_name,
             'Value' => $this->getStylingStyleNice($this->getOwner()->Style),
         ]);
     }
@@ -53,20 +65,21 @@ class StylingStyle extends Extension
     /**
      * @return string
      */
-    public function updateStyleVariant(&$style): string
+    public function updateStyleVariant(mixed &$style): string
     {
-        $style = isset($style) ? strtolower((string)$style) : '';
-        $style = 'style-' . $style;
+        $style = $this->getConfiguredVariantClass('style_variants', $this->getOwner()->Style);
 
         return $style;
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
-        $style = $this->getOwner()->config()->get('styles');
+        $style = $this->getEnabledVariantOptions('style_variants', $this->getStyleDefinitions());
         if ($style && count($style) > 1) {
-            $fields->addFieldToTab('Root.Styling',
-                DropdownField::create('Style', _t(self::class . '.STYLE', 'Style'), $style));
+            $fields->addFieldToTab(
+                'Root.Styling',
+                StylingOptionsetField::create('Style', _t(StylingStyle::class . '.STYLE', 'Style'), $style)
+            );
         } else {
             $fields->removeByName('Style');
         }
@@ -74,11 +87,11 @@ class StylingStyle extends Extension
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $style = $this->getOwner()->config()->get('styles');
-        $style = array_key_first($style);
-
-        $this->getOwner()->Style = $style;
+        $default = $this->getDefaultVariantKey('style_variants', $this->getStyleDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->Style = $default;
+        }
     }
 }

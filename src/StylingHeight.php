@@ -2,14 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
 use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
-
 class StylingHeight extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @config
      */
@@ -34,17 +36,28 @@ class StylingHeight extends Extension
      *
      * @var array
      */
-    private static array $height = [];
+    private static array $height_variants = [];
 
-    public function getStylingHeightNice(string $key): string
+    /** @return array<string, string> */
+    private function getHeightDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('height')[$key])) ? $key : $this->getOwner()->config()->get('height')[$key];
+        return [
+            'small' => _t(StylingHeight::class . '.SMALL', 'Small'),
+            'medium' => _t(StylingHeight::class . '.MEDIUM', 'Medium'),
+            'large' => _t(StylingHeight::class . '.LARGE', 'Large'),
+            'full' => _t(StylingHeight::class . '.FULL', 'Full height'),
+        ];
+    }
+
+    public function getStylingHeightNice(?string $key): string
+    {
+        return $this->getHeightDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingHeightData(): ArrayData
     {
         return ArrayData::create([
-            'Label' => self::$singular_name,
+            'Label' => StylingHeight::$singular_name,
             'Value' => $this->getStylingHeightNice($this->getOwner()->Height),
         ]);
     }
@@ -54,20 +67,17 @@ class StylingHeight extends Extension
      */
     public function getHeightVariant(): string
     {
-        $height = $this->getOwner()->Height;
-        $heights = $this->getOwner()->config()->get('height');
-
-        $height = isset($heights[$height]) ? strtolower($height) : '';
-
-        return 'height-' . $height;
+        return $this->getConfiguredVariantClass('height_variants', $this->getOwner()->Height);
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
-        $height = $this->getOwner()->config()->get('height');
+        $height = $this->getEnabledVariantOptions('height_variants', $this->getHeightDefinitions());
         if ($height && count($height) > 1) {
-            $fields->addFieldToTab('Root.Styling',
-                StylingOptionsetField::create('Height', _t(self::class . '.HEIGHT', 'Height Size'), $height));
+            $fields->addFieldToTab(
+                'Root.Styling',
+                StylingOptionsetField::create('Height', _t(StylingHeight::class . '.HEIGHT', 'Height Size'), $height)
+            );
         } else {
             $fields->removeByName('Height');
         }
@@ -75,11 +85,11 @@ class StylingHeight extends Extension
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $height = $this->getOwner()->config()->get('height');
-        $height = reset($height);
-
-        $this->getOwner()->Height = $height;
+        $default = $this->getDefaultVariantKey('height_variants', $this->getHeightDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->Height = $default;
+        }
     }
 }
