@@ -5,7 +5,7 @@
     colors="true"
 >
     <testsuites>
-        <testsuite name="Elemental Stylings">
+        <testsuite name="elemental-stylings">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
