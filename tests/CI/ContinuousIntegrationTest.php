@@ -18,4 +18,20 @@ class ContinuousIntegrationTest extends TestCase
         $this->assertStringContainsString('endtoend: true', $workflow);
         $this->assertStringContainsString("screenshot_path: '%paths.base%/artifacts/screenshots'", $behat);
     }
+
+    public function testPhpUnitSuiteIdentifierIsAcceptedByOfficialCi(): void
+    {
+        $phpunit = file_get_contents(dirname(__DIR__, 2) . '/phpunit.xml.dist');
+
+        $this->assertIsString($phpunit);
+        $this->assertMatchesRegularExpression('/<testsuite name="[a-zA-Z0-9_-]+">/', $phpunit);
+    }
+
+    public function testBrowserSuiteCreatesTheOfficialElementalPageFixture(): void
+    {
+        $feature = file_get_contents(dirname(__DIR__, 2) . '/tests/Behat/features/styling-controls.feature');
+
+        $this->assertIsString($feature);
+        $this->assertStringContainsString('a "basic elemental page" "Styling Page"', $feature);
+    }
 }

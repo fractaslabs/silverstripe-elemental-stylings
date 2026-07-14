@@ -16,7 +16,7 @@ class FeatureContext extends SilverStripeContext
      */
     public function createFullyConfiguredStylingElement(string $type, string $title): void
     {
-        Assert::assertSame('page', $type);
+        Assert::assertSame('basic elemental page', $type);
 
         Versioned::set_stage(Versioned::DRAFT);
         $page = SiteTree::get()->filter('Title', $title)->first();
