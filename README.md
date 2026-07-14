@@ -1,128 +1,96 @@
-# SilverStripe Elemental Stylings
+# Silverstripe Elemental Stylings
+
 [![Latest Stable Version](https://poser.pugx.org/fractas/elemental-stylings/v/stable)](https://packagist.org/packages/fractas/elemental-stylings)
 [![Total Downloads](https://poser.pugx.org/fractas/elemental-stylings/downloads)](https://packagist.org/packages/fractas/elemental-stylings)
-[![Latest Unstable Version](https://poser.pugx.org/fractas/elemental-stylings/v/unstable)](https://packagist.org/packages/fractas/elemental-stylings)
 [![License](https://poser.pugx.org/fractas/elemental-stylings/license)](https://packagist.org/packages/fractas/elemental-stylings)
 
+Framework-agnostic styling controls for [Silverstripe Elemental](https://github.com/dnadesign/silverstripe-elemental). Editors select a small set of visual variants in the CMS while each Element maps neutral stored keys to the CSS classes used by its project.
 
-## Introduction
-
-This module extends a [SilverStripe Elemental Blocks](https://github.com/dnadesign/silverstripe-elemental) to enhance its functionalities with predefined sets of Classes of Styling elements.
-
-Predefined Styling classes:
-- **StylingHeight** - changes a height of a Block
-- **StylingHorizontalAlign** - changes a horizontal alignment of a Block
-- **StylingLimit** - changes a limit of a Block
-- **StylingSize** - changes a size of a Block
-- **StylingStyle** _(extended from Core module)_ - special enhancements for a class extended from Core module
-- **StylingTextAlign** - changes a text alignment inside of a Block
-- **StylingVerticalAlign** - changes a vertical alignment of a Block
-- **StylingWidth** - changes a width of a Block _(example uses Bootstrap Grid syntax)_
-
-The module provides basic markup for each of the stylings but you have an option to edit and/or replace those predefined styles.
-
+![Element Styling controls](docs/images/overview-block-stylings-ss6.png)
 
 ## Requirements
 
-* SilverStripe CMS ^6.0
-* SilverStripe Elemental Blocks ^6.0
-
-For CMS 4.x and 5.x use version 1.x of this module.
+- PHP 8.3 or newer
+- Silverstripe CMS 6.2 or newer
+- Silverstripe Elemental 6.0 or newer
 
 ## Installation
 
-- Install a module via Composer
-```
+```bash
 composer require fractas/elemental-stylings
+vendor/bin/sake dev/build flush=1
 ```
-- Follow an instructions for installation of [Elemental Blocks module](https://github.com/dnadesign/silverstripe-elemental#installation)
-- Apply a desired Styling Class extension on Block class _(ie. ElementContent that ships with Core module)_
-**mysite/\_config/elements.yml**
-```yaml
-  DNADesign\Elemental\Models\ElementContent:
-    extensions:
-      - Fractas\ElementalStylings\StylingHeight
-      - Fractas\ElementalStylings\StylingHorizontalAlign
-      - Fractas\ElementalStylings\StylingStyle
-      - Fractas\ElementalStylings\StylingTextAlign
-      - Fractas\ElementalStylings\StylingVerticalAlign
-      - Fractas\ElementalStylings\StylingWidth
-```
-- Add an desired styles based on your preferences, see [Configuration example](#full-configuration-example)
-- Optionaly, you can require basic CSS stylings provided with this module to your controller class like:
-  **mysite/code/PageController.php**
-  ```php
-      Requirements::css('fractas/elemental-stylings:client/dist/css/stylings.css');
-  ```
-- Build and flush your project ```vendor/bin/sake dev/build flush=1```
 
+## Quick start
 
-## Full configuration example
-
-This is a sample configuration for use of Stylings classes in YML configuration.  
-
-**mysite/\_config/elements.yml**
+Configure only the extensions and neutral variants required by an Element. YAML values are returned unchanged by the corresponding template getters and may contain multiple classes.
 
 ```yaml
-DNADesign\Elemental\Models\ElementContent:
+App\Elements\ContentElement:
   extensions:
-    - Fractas\ElementalStylings\StylingHeight
-    - Fractas\ElementalStylings\StylingHorizontalAlign
-    - Fractas\ElementalStylings\StylingStyle
     - Fractas\ElementalStylings\StylingTextAlign
-    - Fractas\ElementalStylings\StylingVerticalAlign
     - Fractas\ElementalStylings\StylingWidth
-  styles:
-    light: 'Light background color with Dark text'
-    dark: 'Dark background color with White text'
-  textalign:
-    left: 'Left'
-    right: 'Right'
-    center: 'Center'
-  horalign:
-    left: 'Left'
-    right: 'Right'
-    center: 'Center'
-  veralign:
-    top: 'Top'
-    middle: 'Middle'
-    bottom: 'Bottom'
-  height:
-    small: 'Small'
-    medium: 'Medium'
-    large: 'Large'
-  width:
-    col-sm-6: '50%'
-    col-sm-4: '33.33%'
-    col-sm-12: '100%'
+
+  text_align_variants:
+    start: 'content-text-start'
+    center: 'content-text-center'
+
+  width_variants:
+    half: 'content-width-half'
+    full: 'content-width-full'
 ```
 
-## Implementation example: 'Text with Image' Element
+The CMS stores only `start`, `center`, `half`, or `full`. Templates receive the configured project classes:
 
-* New Element class file: [ElementContentImage.php](https://gist.github.com/jelicanin/20d11104a89fd9ea3a1e69b8bc91824b)
-* New Element template file: [ElementContentImage.ss](https://gist.github.com/jelicanin/aec741745d417e9047efbf25bf93245d)
+```ss
+<section class="$WidthVariant $TextAlignVariant">
+    $HTML
+</section>
+```
 
+```html
+<section class="content-width-half content-text-center">
+    ...
+</section>
+```
+
+## Documentation
+
+- [Configuration](docs/en/configuration.md)
+- [Styling extensions and canonical keys](docs/en/styling-extensions.md)
+- [Template usage](docs/en/template-usage.md)
+- [CMS screenshots](docs/en/screenshots.md)
+- Examples:
+  - [Custom CSS](docs/en/examples/custom-css.md)
+  - [Bootstrap 5](docs/en/examples/bootstrap-5.md)
+  - [Tailwind CSS](docs/en/examples/tailwind-css.md)
+- [Upgrading](docs/en/upgrading.md)
+- [Development](docs/en/development.md)
 
 ## Screenshots
 
-Updated GridField with preview of applied stylings:
-![GridFieldStylings](docs/images/overview-gridfield-stylings.png?v=2)
+An Elemental page with selected styling metadata visible in the collapsed Element summary:
 
+![Elemental page editor with styling metadata](docs/images/overview-page-editor-ss6.png)
 
-Styling tab of a Block with icons for specific styles:
-![BlockStylings](docs/images/overview-block-stylings.png?v=2)
+Editing an Element beside the live page preview:
 
+![Element content and live preview](docs/images/overview-element-content-ss6.png)
 
-## Reporting Issues
+The Element actions menu exposes Styling as its own section:
 
-Please [create an issue](https://github.com/fractaslabs/silverstripe-elemental-stylings/issues) for any bugs you've found, or features you're missing.
+![Element actions with Styling](docs/images/overview-element-actions-ss6.png)
 
+The Styling section presents every enabled neutral variant as a visual option:
 
-## License
+![Element Styling controls](docs/images/overview-block-stylings-ss6.png)
 
-See [License](LICENSE)
+Selected styling metadata remains visible when the Element is collapsed:
 
+![Selected Element styling metadata](docs/images/overview-gridfield-stylings-ss6.png)
 
-## Credits
+See the [CMS screenshot gallery](docs/en/screenshots.md) for focused views of every control group.
 
-Styling icons from IcoMoon - Free by [IcoMoon](https://icomoon.io/app)
+## Support
+
+Please [create an issue](https://github.com/fractaslabs/silverstripe-elemental-stylings/issues) for reproducible bugs or missing functionality.
