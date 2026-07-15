@@ -1,170 +1,577 @@
-.styling-block-preview {}
+.styling-block-preview__description {
+  min-width: 680px;
+}
 
-  .styling-block-preview__description {
-    min-width: 680px;
-  }
+.styling-block-preview__image {
+  display: block;
+  float: left;
+  margin: 0 10px 10px 0;
+}
 
-  .styling-block-preview__image {
-    float: left;
-    display: block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
+.styling-block-preview__list {
+  clear: both;
+  margin: 15px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+}
 
-    .styling-block-preview__list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      font-size: 12px;
-      margin-top: 15px;
-      clear: both;
-    }
+.styling-block-preview__list-item {
+  display: inline;
+  float: left;
+  margin-right: 20px;
+}
 
-      .styling-block-preview__list-item {
-        display: inline;
-        float: left;
-        margin-right: 20px;
-      }
-
-      .styling-block-preview__list-item strong {
-        display: block;
-      }
+.styling-block-preview__list-item strong {
+  display: block;
+}
 
 .elemental-editor .col-EditorPreview {
   padding-bottom: 10px;
 }
 
-/* Fix for no margin between Gridfield table and subsequent fields */
-.cms-content-view .grid-field, .cms-content-view .grid-field__table {
+.cms-content-view .grid-field,
+.cms-content-view .grid-field__table {
   margin-bottom: 1.2308rem;
+}
+
+.cms-edit-form .stylingoptionset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cms-edit-form .stylingoptionset li {
+  position: relative;
+  margin: 0;
 }
 
 .cms-edit-form .stylingoptionset .radio {
   position: absolute;
-  opacity: 0;
-  left: 0;
-  width: 60px;
-  height: 40px;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
-.cms-edit-form .stylingoptionset ul li {
-  display: inline-block;
+.cms-edit-form .styling-option {
+  display: grid;
+  grid-template-rows: 40px auto;
+  place-items: center;
+  min-width: 72px;
+  min-height: 72px;
+  margin: 0;
+  padding: 8px 10px;
+  color: #43536d;
+  background: #fff;
+  border: 1px solid #c1cad9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.cms-edit-form .styling-option:hover {
+  border-color: #77859a;
+  background: #f7f8fa;
+}
+
+.cms-edit-form .stylingoptionset .radio:checked + .styling-option {
+  color: #005a93;
+  background: #eef7fc;
+  border-color: #005a93;
+  box-shadow: inset 0 0 0 1px #005a93;
+}
+
+.cms-edit-form .stylingoptionset .radio:focus-visible + .styling-option {
+  outline: 3px solid rgba(0, 90, 147, 0.35);
+  outline-offset: 2px;
+}
+
+.cms-edit-form .stylingoptionset .radio:disabled + .styling-option {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cms-edit-form .styling-option__label {
+  max-width: 96px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
   text-align: center;
-  width: 60px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cms-edit-form .styling-option__icon {
   position: relative;
-}
-
-.cms-edit-form .stylingoptionset ul {
-  padding-left: 0;
-  margin-bottom: 0;
-}
-
-.cms-edit-form .stylingoptionset label {
-  margin-bottom: 0;
-}
-
-.cms-edit-form .stylingoptionset .icon-wrap  {
   display: block;
-  width: 60px;
-  height: 40px;
-  margin: 5px auto;
-  border: 1px solid #e5e8eb;
-  padding: 7px;
+  box-sizing: border-box;
+  width: 36px;
+  height: 28px;
+  color: currentColor;
 }
 
-.cms-edit-form .stylingoptionset .ischecked .icon-wrap {
-  border: 1px solid #29abe2;
-  background-color: #e6f5fc;
+/* Generic preview: a block inside a consistent content frame. */
+.cms-edit-form .styling-option__icon::before,
+.cms-edit-form .styling-option__icon::after {
+  position: absolute;
+  box-sizing: border-box;
+  content: "";
 }
 
-.cms-edit-form .stylingoptionset .icon {
-  display: inline-block;
-  background-repeat: no-repeat;
-  background-image: url(sprite.svg);
+.cms-edit-form .styling-option__icon::before {
+  inset: 0;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+.cms-edit-form .styling-option__icon::after {
+  top: 8px;
+  left: 10px;
+  width: 16px;
+  height: 12px;
+  background: currentColor;
+  border-radius: 1px;
+  opacity: 0.72;
+}
+
+/* Horizontal block alignment. */
+.cms-edit-form [data-styling-name="horalign"]::after {
+  top: 7px;
+  left: 4px;
+  width: 12px;
+  height: 14px;
+}
+
+.cms-edit-form [data-styling-name="horalign"][data-styling-value="center"]::after {
+  left: 12px;
+}
+
+.cms-edit-form [data-styling-name="horalign"][data-styling-value="end"]::after {
+  right: 4px;
+  left: auto;
+}
+
+/* Vertical block alignment. */
+.cms-edit-form [data-styling-name="veralign"]::after {
+  top: 4px;
+  left: 8px;
+  width: 20px;
+  height: 8px;
+}
+
+.cms-edit-form [data-styling-name="veralign"][data-styling-value="center"]::after {
+  top: 10px;
+}
+
+.cms-edit-form [data-styling-name="veralign"][data-styling-value="end"]::after {
+  top: auto;
+  bottom: 4px;
+}
+
+/* Text alignment uses alternating long and short text lines. */
+.cms-edit-form [data-styling-name="textalign"]::before {
+  top: 4px;
+  right: auto;
+  bottom: auto;
+  left: 4px;
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+  border: 0;
+  border-radius: 1px;
+  box-shadow: 0 6px 0 currentColor, 0 12px 0 currentColor, 0 18px 0 currentColor;
+}
+
+.cms-edit-form [data-styling-name="textalign"]::after {
+  top: 10px;
+  left: 4px;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 1px;
+  box-shadow: 0 12px 0 currentColor;
+  opacity: 1;
+}
+
+.cms-edit-form [data-styling-name="textalign"][data-styling-value="center"]::after {
+  left: 9px;
+}
+
+.cms-edit-form [data-styling-name="textalign"][data-styling-value="end"]::after {
+  right: 4px;
+  left: auto;
+}
+
+/* Height keeps width constant while the inner block grows vertically. */
+.cms-edit-form [data-styling-name="height"]::after {
+  top: auto;
+  bottom: 4px;
+  left: 6px;
+  width: 24px;
+  height: 7px;
+}
+
+.cms-edit-form [data-styling-name="height"][data-styling-value="medium"]::after {
+  height: 12px;
+}
+
+.cms-edit-form [data-styling-name="height"][data-styling-value="large"]::after {
+  height: 17px;
+}
+
+.cms-edit-form [data-styling-name="height"][data-styling-value="full"]::after {
+  top: 2px;
+  bottom: 2px;
+  height: auto;
+}
+
+/* Width keeps height constant so each percentage is immediately comparable. */
+.cms-edit-form [data-styling-name="width"]::after {
+  top: 5px;
+  left: 4px;
+  width: 25%;
+  height: 18px;
+}
+
+.cms-edit-form [data-styling-name="width"][data-styling-value="quarter"]::after {
+  width: 25%;
+}
+
+.cms-edit-form [data-styling-name="width"][data-styling-value="half"]::after {
+  width: 50%;
+}
+
+.cms-edit-form [data-styling-name="width"][data-styling-value="three-quarters"]::after {
+  width: 75%;
+}
+
+.cms-edit-form [data-styling-name="width"][data-styling-value="full"]::after {
+  right: 4px;
+  width: auto;
+}
+
+/* Limit previews the exact number of items in a compact grid. */
+.cms-edit-form [data-styling-name="limit"][data-styling-value="three"]::after {
+  top: 11px;
+  left: 6px;
+  width: 6px;
+  height: 6px;
+  box-shadow: 9px 0 0 currentColor, 18px 0 0 currentColor;
+}
+
+.cms-edit-form [data-styling-name="limit"][data-styling-value="six"]::after {
+  top: 8px;
+  left: 6px;
+  width: 6px;
+  height: 6px;
+  box-shadow: 9px 0 0 currentColor, 18px 0 0 currentColor,
+    0 10px 0 currentColor, 9px 10px 0 currentColor, 18px 10px 0 currentColor;
+}
+
+.cms-edit-form [data-styling-name="limit"][data-styling-value="twelve"]::after {
+  top: 5px;
+  left: 5px;
+  width: 5px;
+  height: 5px;
+  box-shadow: 7px 0 0 currentColor, 14px 0 0 currentColor, 21px 0 0 currentColor,
+    0 7px 0 currentColor, 7px 7px 0 currentColor, 14px 7px 0 currentColor, 21px 7px 0 currentColor,
+    0 14px 0 currentColor, 7px 14px 0 currentColor, 14px 14px 0 currentColor, 21px 14px 0 currentColor;
+}
+
+/* Size grows in both dimensions while remaining centred in the same frame. */
+.cms-edit-form [data-styling-name="size"][data-styling-value="small"]::after {
+  top: 10px;
+  left: 14px;
+  width: 8px;
+  height: 8px;
+}
+
+.cms-edit-form [data-styling-name="size"][data-styling-value="medium"]::after {
+  top: 8px;
+  left: 12px;
+  width: 12px;
+  height: 12px;
+}
+
+.cms-edit-form [data-styling-name="size"][data-styling-value="large"]::after {
+  top: 5px;
+  left: 9px;
+  width: 18px;
+  height: 18px;
+}
+
+.cms-edit-form [data-styling-name="size"][data-styling-value="extra-large"]::after {
+  top: 2px;
+  left: 6px;
   width: 24px;
   height: 24px;
 }
 
-.cms-edit-form .stylingoptionset .ischecked .icon {
-  background-image: url(sprite-active.svg);
+/* Style uses neutral surface swatches: mixed, outlined, and filled. */
+.cms-edit-form [data-styling-name="style"][data-styling-value="default"]::after {
+  top: 5px;
+  left: 6px;
+  width: 12px;
+  height: 18px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_horalign_left,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_left {
-  background-position: -80px 0;
+.cms-edit-form [data-styling-name="style"][data-styling-value="light"]::after {
+  top: 5px;
+  left: 6px;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: 1.5px solid currentColor;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_horalign_right,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_right {
-  background-position: -120px 0;
+.cms-edit-form [data-styling-name="style"][data-styling-value="dark"]::after {
+  top: 5px;
+  left: 6px;
+  width: 24px;
+  height: 18px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_horalign_center,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_horalign_center {
-  background-position: -40px 0;
+/* Silverstripe 6 renders OptionsetField through the CMS React schema. */
+.cms-edit-form .stylingoptionset .form__field-holder > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_veralign_top,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_top {
-  background-position: -160px 0;
+.cms-edit-form .stylingoptionset .form-check { margin: 0; padding: 0; }
+.cms-edit-form .stylingoptionset .form-check-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_veralign_bottom,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_bottom {
-  background-position: 0 0;
+.cms-edit-form .stylingoptionset .form-check-label > span {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  width: 78px;
+  height: 78px;
+  padding: 50px 8px 8px;
+  color: #43536d;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: #fff;
+  border: 1px solid #c1cad9;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_veralign_middle,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_veralign_middle {
-  background-position: -200px 0;
+.cms-edit-form .stylingoptionset .form-check-label > span::before,
+.cms-edit-form .stylingoptionset .form-check-label > span::after {
+  position: absolute;
+  box-sizing: border-box;
+  content: "";
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_textalign_left,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_left {
-  background-position: -280px 0;
+.cms-edit-form .stylingoptionset .form-check-label > span::before {
+  top: 10px;
+  left: 20px;
+  width: 36px;
+  height: 28px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_textalign_right,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_right {
-  background-position: -320px 0;
+.cms-edit-form .stylingoptionset .form-check-label > span::after {
+  top: 17px;
+  left: 30px;
+  width: 16px;
+  height: 14px;
+  background: currentColor;
+  border-radius: 1px;
+  opacity: 0.72;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_textalign_center,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_textalign_center {
-  background-position: -240px 0;
+.cms-edit-form .stylingoptionset .form-check-input:checked + span {
+  color: #005a93;
+  background: #eef7fc;
+  border-color: #005a93;
+  box-shadow: inset 0 0 0 1px #005a93;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_height_small,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_small {
-  background-position: -364px 0;
+.cms-edit-form .stylingoptionset .form-check-input:focus-visible + span {
+  outline: 3px solid rgba(0, 90, 147, 0.35);
+  outline-offset: 2px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_height_medium,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_medium {
-  background-position: -411px 0;
+.cms-edit-form .stylingoptionset :is([name="Width"], [name$="_Width"]) + span::after {
+  top: 15px;
+  left: 24px;
+  height: 18px;
+}
+.cms-edit-form .stylingoptionset :is([name="Width"], [name$="_Width"]).option-val--quarter + span::after {
+  width: 7px;
+}
+.cms-edit-form .stylingoptionset :is([name="Width"], [name$="_Width"]).option-val--half + span::after {
+  width: 14px;
+}
+.cms-edit-form .stylingoptionset :is([name="Width"], [name$="_Width"]).option-val--three-quarters + span::after {
+  width: 21px;
+}
+.cms-edit-form .stylingoptionset :is([name="Width"], [name$="_Width"]).option-val--full + span::after {
+  width: 28px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_height_large,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_height_large {
-  background-position: -456px 0;
+.cms-edit-form .stylingoptionset :is([name="HorAlign"], [name$="_HorAlign"]) + span::after {
+  top: 17px;
+  left: 24px;
+  width: 12px;
+  height: 14px;
+}
+.cms-edit-form .stylingoptionset :is([name="HorAlign"], [name$="_HorAlign"]).option-val--center + span::after {
+  left: 32px;
+}
+.cms-edit-form .stylingoptionset :is([name="HorAlign"], [name$="_HorAlign"]).option-val--end + span::after {
+  right: 24px;
+  left: auto;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-9,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-9 {
-  background-position: -613px 0;
+.cms-edit-form .stylingoptionset :is([name="VerAlign"], [name$="_VerAlign"]) + span::after {
+  top: 14px;
+  left: 28px;
+  width: 20px;
+  height: 8px;
+}
+.cms-edit-form .stylingoptionset :is([name="VerAlign"], [name$="_VerAlign"]).option-val--center + span::after {
+  top: 20px;
+}
+.cms-edit-form .stylingoptionset :is([name="VerAlign"], [name$="_VerAlign"]).option-val--end + span::after {
+  top: 26px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-6,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-6 {
-  background-position: -576px 0;
+.cms-edit-form .stylingoptionset :is([name="TextAlign"], [name$="_TextAlign"]) + span::before {
+  top: 13px;
+  left: 24px;
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+  border: 0;
+  box-shadow: 0 6px 0 currentColor, 0 12px 0 currentColor, 0 18px 0 currentColor;
+}
+.cms-edit-form .stylingoptionset :is([name="TextAlign"], [name$="_TextAlign"]) + span::after {
+  top: 19px;
+  left: 24px;
+  width: 18px;
+  height: 2px;
+  box-shadow: 0 12px 0 currentColor;
+}
+.cms-edit-form .stylingoptionset :is([name="TextAlign"], [name$="_TextAlign"]).option-val--center + span::after {
+  left: 29px;
+}
+.cms-edit-form .stylingoptionset :is([name="TextAlign"], [name$="_TextAlign"]).option-val--end + span::after {
+  right: 24px;
+  left: auto;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-3,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-3 {
-  background-position: -542px 0;
+.cms-edit-form .stylingoptionset :is([name="Height"], [name$="_Height"]).option-val--small + span::after {
+  top: 26px;
+  height: 7px;
+}
+.cms-edit-form .stylingoptionset :is([name="Height"], [name$="_Height"]).option-val--medium + span::after {
+  top: 21px;
+  height: 12px;
+}
+.cms-edit-form .stylingoptionset :is([name="Height"], [name$="_Height"]).option-val--large + span::after {
+  top: 16px;
+  height: 17px;
+}
+.cms-edit-form .stylingoptionset :is([name="Height"], [name$="_Height"]).option-val--full + span::after {
+  top: 12px;
+  left: 30px;
+  width: 16px;
+  height: 24px;
 }
 
-.cms-edit-form .stylingoptionset .form_itemeditform_width_col-sm-12,
-.cms-edit-form .stylingoptionset .ischecked .form_itemeditform_width_col-sm-12 {
-  background-position: -650px 0;
+.cms-edit-form .stylingoptionset :is([name="Limit"], [name$="_Limit"]).option-val--three + span::after {
+  top: 21px;
+  left: 26px;
+  width: 6px;
+  height: 6px;
+  box-shadow: 9px 0 0 currentColor, 18px 0 0 currentColor;
+}
+.cms-edit-form .stylingoptionset :is([name="Limit"], [name$="_Limit"]).option-val--six + span::after {
+  top: 18px;
+  left: 26px;
+  width: 6px;
+  height: 6px;
+  box-shadow: 9px 0 0 currentColor, 18px 0 0 currentColor,
+    0 10px 0 currentColor, 9px 10px 0 currentColor, 18px 10px 0 currentColor;
+}
+.cms-edit-form .stylingoptionset :is([name="Limit"], [name$="_Limit"]).option-val--twelve + span::after {
+  top: 15px;
+  left: 25px;
+  width: 5px;
+  height: 5px;
+  box-shadow: 7px 0 0 currentColor, 14px 0 0 currentColor, 21px 0 0 currentColor,
+    0 7px 0 currentColor, 7px 7px 0 currentColor, 14px 7px 0 currentColor, 21px 7px 0 currentColor,
+    0 14px 0 currentColor, 7px 14px 0 currentColor, 14px 14px 0 currentColor, 21px 14px 0 currentColor;
+}
+
+.cms-edit-form .stylingoptionset :is([name="Size"], [name$="_Size"]).option-val--small + span::after {
+  top: 20px;
+  left: 34px;
+  width: 8px;
+  height: 8px;
+}
+.cms-edit-form .stylingoptionset :is([name="Size"], [name$="_Size"]).option-val--medium + span::after {
+  top: 18px;
+  left: 32px;
+  width: 12px;
+  height: 12px;
+}
+.cms-edit-form .stylingoptionset :is([name="Size"], [name$="_Size"]).option-val--large + span::after {
+  top: 15px;
+  left: 29px;
+  width: 18px;
+  height: 18px;
+}
+.cms-edit-form .stylingoptionset :is([name="Size"], [name$="_Size"]).option-val--extra-large + span::after {
+  top: 12px;
+  left: 26px;
+  width: 24px;
+  height: 24px;
+}
+.cms-edit-form .stylingoptionset :is([name="Size"], [name$="_Size"]).option-val--extra-large + span {
+  font-size: 11px;
+}
+
+.cms-edit-form .stylingoptionset :is([name="Style"], [name$="_Style"]).option-val--default + span::after {
+  top: 15px;
+  left: 26px;
+  width: 12px;
+  height: 18px;
+}
+.cms-edit-form .stylingoptionset :is([name="Style"], [name$="_Style"]).option-val--light + span::after {
+  top: 15px;
+  left: 26px;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: 1.5px solid currentColor;
+}
+.cms-edit-form .stylingoptionset :is([name="Style"], [name$="_Style"]).option-val--dark + span::after {
+  top: 15px;
+  left: 26px;
+  width: 24px;
+  height: 18px;
 }

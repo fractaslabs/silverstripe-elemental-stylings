@@ -7,7 +7,7 @@
     </div>
   <% end_if %>
   <% if $Description %>
-    <div class="styling-block-preview__description">$Description.RAW</div>
+    <div class="styling-block-preview__description">$Description</div>
   <% end_if %>
 
   <% if $Styling %>

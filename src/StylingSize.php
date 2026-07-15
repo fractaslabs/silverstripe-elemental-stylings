@@ -2,14 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
+use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
-use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
-
 class StylingSize extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @config
      */
@@ -34,17 +36,28 @@ class StylingSize extends Extension
      *
      * @var array
      */
-    private static array $size = [];
+    private static array $size_variants = [];
 
-    public function getStylingSizeNice(string $key): string
+    /** @return array<string, string> */
+    private function getSizeDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('size')[$key])) ? $key : $this->getOwner()->config()->get('size')[$key];
+        return [
+            'small' => _t(StylingSize::class . '.SMALL', 'Small'),
+            'medium' => _t(StylingSize::class . '.MEDIUM', 'Medium'),
+            'large' => _t(StylingSize::class . '.LARGE', 'Large'),
+            'extra-large' => _t(StylingSize::class . '.EXTRA_LARGE', 'Extra large'),
+        ];
+    }
+
+    public function getStylingSizeNice(?string $key): string
+    {
+        return $this->getSizeDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingSizeData(): ArrayData
     {
         return ArrayData::create([
-            'Label' => self::$singular_name,
+            'Label' => StylingSize::$singular_name,
             'Value' => $this->getStylingSizeNice($this->getOwner()->Size),
         ]);
     }
@@ -54,20 +67,17 @@ class StylingSize extends Extension
      */
     public function getSizeVariant(): string
     {
-        $size = $this->getOwner()->Size;
-        $sizes = $this->getOwner()->config()->get('size');
-
-        $size = isset($sizes[$size]) ? strtolower($size) : '';
-
-        return 'size-' . $size;
+        return $this->getConfiguredVariantClass('size_variants', $this->getOwner()->Size);
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
-        $size = $this->getOwner()->config()->get('size');
+        $size = $this->getEnabledVariantOptions('size_variants', $this->getSizeDefinitions());
         if ($size && count($size) > 1) {
-            $fields->addFieldToTab('Root.Styling',
-                DropdownField::create('Size', _t(self::class . '.SIZE', 'Size'), $size));
+            $fields->addFieldToTab(
+                'Root.Styling',
+                StylingOptionsetField::create('Size', _t(StylingSize::class . '.SIZE', 'Size'), $size)
+            );
         } else {
             $fields->removeByName('Size');
         }
@@ -75,11 +85,11 @@ class StylingSize extends Extension
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $size = $this->getOwner()->config()->get('size');
-        $size = reset($size);
-
-        $this->getOwner()->Size = $size;
+        $default = $this->getDefaultVariantKey('size_variants', $this->getSizeDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->Size = $default;
+        }
     }
 }

@@ -1,0 +1,48 @@
+---
+Name: elemental-stylings-behat-controls
+---
+DNADesign\Elemental\Models\ElementContent:
+  extensions:
+    - Fractas\ElementalStylings\StylingHeight
+    - Fractas\ElementalStylings\StylingHorizontalAlign
+    - Fractas\ElementalStylings\StylingLimit
+    - Fractas\ElementalStylings\StylingSize
+    - Fractas\ElementalStylings\StylingStyle
+    - Fractas\ElementalStylings\StylingTextAlign
+    - Fractas\ElementalStylings\StylingVerticalAlign
+    - Fractas\ElementalStylings\StylingWidth
+  height_variants:
+    small: 'height-small'
+    medium: 'height-medium'
+    large: 'height-large'
+    full: 'height-full'
+  horizontal_align_variants:
+    start: 'horizontal-start'
+    center: 'horizontal-center'
+    end: 'horizontal-end'
+  limit_variants:
+    three: 'limit-three'
+    six: 'limit-six'
+    twelve: 'limit-twelve'
+  size_variants:
+    small: 'size-small'
+    medium: 'size-medium'
+    large: 'size-large'
+    extra-large: 'size-extra-large'
+  style_variants:
+    default: 'style-default'
+    light: 'style-light'
+    dark: 'style-dark'
+  text_align_variants:
+    start: 'text-start'
+    center: 'text-center'
+    end: 'text-end'
+  vertical_align_variants:
+    start: 'vertical-start'
+    center: 'vertical-center'
+    end: 'vertical-end'
+  width_variants:
+    quarter: 'width-quarter'
+    half: 'width-half'
+    three-quarters: 'width-three-quarters'
+    full: 'width-full'

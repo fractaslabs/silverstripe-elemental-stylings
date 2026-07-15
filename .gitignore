@@ -1,0 +1,8 @@
+/.phpunit.cache/
+/.playwright-cli/
+/artifacts/
+/output/
+/.local/
+/composer.lock
+/public/
+/vendor/

@@ -2,14 +2,16 @@
 
 namespace Fractas\ElementalStylings;
 
+use Fractas\ElementalStylings\Concerns\ResolvesStylingVariants;
 use Fractas\ElementalStylings\Forms\StylingOptionsetField;
 use SilverStripe\Core\Extension;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Model\ArrayData;
 
-
 class StylingTextAlign extends Extension
 {
+    use ResolvesStylingVariants;
+
     /**
      * @config
      */
@@ -34,17 +36,27 @@ class StylingTextAlign extends Extension
      *
      * @var array
      */
-    private static array $textalign = [];
+    private static array $text_align_variants = [];
 
-    public function getStylingTextAlignNice(string $key):string
+    /** @return array<string, string> */
+    private function getTextAlignDefinitions(): array
     {
-        return (empty($this->getOwner()->config()->get('textalign')[$key])) ? $key : $this->getOwner()->config()->get('textalign')[$key];
+        return [
+            'start' => _t(StylingTextAlign::class . '.START', 'Start'),
+            'center' => _t(StylingTextAlign::class . '.CENTER', 'Center'),
+            'end' => _t(StylingTextAlign::class . '.END', 'End'),
+        ];
+    }
+
+    public function getStylingTextAlignNice(?string $key): string
+    {
+        return $this->getTextAlignDefinitions()[$key] ?? $key ?? '';
     }
 
     public function getStylingTextAlignData(): ArrayData
     {
         return ArrayData::create([
-               'Label' => self::$singular_name,
+               'Label' => StylingTextAlign::$singular_name,
                'Value' => $this->getStylingTextAlignNice($this->getOwner()->TextAlign),
            ]);
     }
@@ -54,33 +66,32 @@ class StylingTextAlign extends Extension
      */
     public function getTextAlignVariant(): string
     {
-        $textalign = $this->getOwner()->TextAlign;
-        $textaligns = $this->getOwner()->config()->get('textalign');
-
-        $textalign = isset($textaligns[$textalign]) ? strtolower($textalign) : '';
-
-        return 'textalign-'.$textalign;
+        return $this->getConfiguredVariantClass('text_align_variants', $this->getOwner()->TextAlign);
     }
 
     public function updateCMSFields(FieldList $fields): FieldList
     {
         $fields->removeByName('TextAlign');
-        $textalign = $this->getOwner()->config()->get('textalign');
+        $textalign = $this->getEnabledVariantOptions('text_align_variants', $this->getTextAlignDefinitions());
         if ($textalign && count($textalign) > 1) {
             $fields->addFieldToTab(
                 'Root.Styling',
-                StylingOptionsetField::create('TextAlign', _t(self::class.'.TEXTALIGN', 'Text Align'), $textalign)
+                StylingOptionsetField::create(
+                    'TextAlign',
+                    _t(StylingTextAlign::class . '.TEXTALIGN', 'Text Align'),
+                    $textalign
+                )
             );
         }
 
         return $fields;
     }
 
-    public function populateDefaults(): void
+    public function onAfterPopulateDefaults(): void
     {
-        $textalign = $this->getOwner()->config()->get('textalign');
-        $textalign = key($textalign);
-
-        $this->getOwner()->TextAlign = $textalign;
+        $default = $this->getDefaultVariantKey('text_align_variants', $this->getTextAlignDefinitions());
+        if ($default !== null) {
+            $this->getOwner()->TextAlign = $default;
+        }
     }
 }

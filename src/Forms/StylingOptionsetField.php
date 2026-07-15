@@ -26,7 +26,7 @@ class StylingOptionsetField extends OptionsetField
             'Options' => ArrayList::create($options),
         ]);
 
-        Requirements::javascript('fractas/elemental-stylings:client/dist/js/StylingOptionsetField.js');
+        Requirements::css('fractas/elemental-stylings:client/dist/css/cms.css');
 
         return FormField::Field($properties);
     }
