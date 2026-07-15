@@ -6,7 +6,7 @@ Feature: Configure Element styling in the CMS
 
   Background:
     Given I have a config file "styling-controls.yml"
-      And I go to "/dev/build?flush=1"
+      And I add an extension "DNADesign\Elemental\Extensions\ElementalPageExtension" to the "Page" class
       And a "page" "Styling Page" with a "Styled block" content element with "<p>Element styling browser test</p>" content
       And the "group" "EDITOR" has permissions "Access to 'Pages' section"
       And I am logged in as a member of "EDITOR" group

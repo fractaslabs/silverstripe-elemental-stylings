@@ -1,10 +1,6 @@
 ---
 Name: elemental-stylings-behat-controls
 ---
-Page:
-  extensions:
-    - DNADesign\Elemental\Extensions\ElementalPageExtension
-
 DNADesign\Elemental\Models\ElementContent:
   extensions:
     - Fractas\ElementalStylings\StylingHeight

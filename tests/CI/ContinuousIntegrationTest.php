@@ -33,6 +33,10 @@ class ContinuousIntegrationTest extends TestCase
 
         $this->assertIsString($feature);
         $this->assertStringContainsString(
+            'I add an extension "DNADesign\Elemental\Extensions\ElementalPageExtension" to the "Page" class',
+            $feature
+        );
+        $this->assertStringContainsString(
             'a "page" "Styling Page" with a "Styled block" content element',
             $feature
         );
