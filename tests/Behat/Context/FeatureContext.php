@@ -2,36 +2,12 @@
 
 namespace Fractas\ElementalStylings\Tests\Behat\Context;
 
-use DNADesign\Elemental\Models\ElementContent;
 use PHPUnit\Framework\Assert;
 use SilverStripe\Assets\Filesystem;
 use SilverStripe\BehatExtension\Context\SilverStripeContext;
-use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Versioned\Versioned;
 
 class FeatureContext extends SilverStripeContext
 {
-    /**
-     * @Given the :type :title has a fully configured styling element
-     */
-    public function createFullyConfiguredStylingElement(string $type, string $title): void
-    {
-        Assert::assertSame('basic elemental page', $type);
-
-        Versioned::set_stage(Versioned::DRAFT);
-        $page = SiteTree::get()->filter('Title', $title)->first();
-
-        Assert::assertNotNull($page, sprintf('Page "%s" exists', $title));
-        Assert::assertGreaterThan(0, (int) $page->ElementalAreaID, 'Page has an ElementalArea');
-
-        ElementContent::create([
-            'Title' => 'Styled block',
-            'HTML' => '<p>Element styling browser test</p>',
-            'ParentID' => $page->ElementalAreaID,
-            'Sort' => 1,
-        ])->write();
-    }
-
     /**
      * @Then the :field styling control should offer :variants
      */

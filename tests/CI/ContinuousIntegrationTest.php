@@ -27,11 +27,14 @@ class ContinuousIntegrationTest extends TestCase
         $this->assertMatchesRegularExpression('/<testsuite name="[a-zA-Z0-9_-]+">/', $phpunit);
     }
 
-    public function testBrowserSuiteCreatesTheOfficialElementalPageFixture(): void
+    public function testBrowserSuiteCreatesElementsThroughTheOfficialFixturePattern(): void
     {
         $feature = file_get_contents(dirname(__DIR__, 2) . '/tests/Behat/features/styling-controls.feature');
 
         $this->assertIsString($feature);
-        $this->assertStringContainsString('a "basic elemental page" "Styling Page"', $feature);
+        $this->assertStringContainsString(
+            'a "page" "Styling Page" with a "Styled block" content element',
+            $feature
+        );
     }
 }

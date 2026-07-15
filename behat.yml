@@ -16,7 +16,7 @@ default:
         - SilverStripe\BehatExtension\Context\LoginContext
         - SilverStripe\CMS\Tests\Behaviour\AnchorContext
         -
-          SilverStripe\BehatExtension\Context\FixtureContext:
+          Fractas\ElementalStylings\Tests\Behat\Context\FixtureContext:
             - '%paths.modules.elemental-stylings%/tests/Behat/files'
         -
           SilverStripe\Framework\Tests\Behaviour\ConfigContext:
